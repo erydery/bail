@@ -5,7 +5,7 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Table from '../components/ui/Table';
 import StatCard from '../components/ui/StatCard';
-import { SkeletonPageHeader, SkeletonStatCards, SkeletonTable } from '../components/ui/Skeleton';
+import { SkeletonPageHeader, SkeletonStatCards } from '../components/ui/Skeleton';
 import { useApi } from '../hooks/useApi';
 import { communicationsApi, locatairesApi } from '../lib/api';
 import { formatDate } from '../lib/utils';

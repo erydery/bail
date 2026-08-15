@@ -1,4 +1,4 @@
-import { Bell, Search, LogOut } from 'lucide-react';
+import {  Search, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import ThemePicker from '../ui/ThemePicker';
 import { useAuth } from '../../context/AuthContext';

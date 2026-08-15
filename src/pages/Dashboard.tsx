@@ -5,7 +5,7 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import PageHeader from '../components/ui/PageHeader';
 
-import { SkeletonStatCards, SkeletonCard, SkeletonLine, SkeletonPageHeader } from '../components/ui/Skeleton';
+import { SkeletonStatCards, SkeletonCard, SkeletonPageHeader } from '../components/ui/Skeleton';
 import { useApi } from '../hooks/useApi';
 import { dashboardApi, bauxApi, paiementsApi, logementsApi, candidaturesApi, maintenanceApi } from '../lib/api';
 import { formatMontant, formatDate } from '../lib/utils';

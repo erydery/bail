@@ -8,7 +8,7 @@ import Modal from '../components/ui/Modal';
 import Select from '../components/ui/Select';
 import Input from '../components/ui/Input';
 import StatCard from '../components/ui/StatCard';
-import { SkeletonPageHeader, SkeletonStatCards, SkeletonLine, Skeleton } from '../components/ui/Skeleton';
+import { SkeletonPageHeader, SkeletonStatCards } from '../components/ui/Skeleton';
 import { useApi } from '../hooks/useApi';
 import { paiementsApi, bauxApi, locatairesApi, logementsApi } from '../lib/api';
 import { formatMontant } from '../lib/utils';
