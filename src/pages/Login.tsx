@@ -48,18 +48,18 @@ export default function Login() {
             className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm"
             style={{ background: 'var(--color-primary)', color: 'var(--color-primary-content)' }}
           >
-            GL
+            SB
           </div>
           <span
             className="font-semibold tracking-wide text-sm uppercase"
             style={{ color: 'var(--color-base-content)', opacity: 0.7 }}
           >
-            Simi Bail
+            Simi <br/> Bail
           </span>
         </div>
 
         {/* Headline */}
-        <div>
+        <div className='mt-2'>
           <p
             className="text-sm font-medium mb-6 uppercase tracking-widest"
             style={{ color: 'var(--color-primary)' }}
