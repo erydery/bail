@@ -1,0 +1,234 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* ─── Thèmes personnalisés style SIMI ─────────────────────────────────── */
+
+/* Thème par défaut : SIMI Orange (sombre + accent orange) */
+@plugin "daisyui/theme" {
+  name: "simi";
+  default: true;
+
+  --color-base-100: #1a1a1a;
+  --color-base-200: #222222;
+  --color-base-300: #2e2e2e;
+  --color-base-content: #e8e8e8;
+
+  --color-primary: #e85d04;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #f48c06;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #faa307;
+  --color-accent-content: #1a1a1a;
+
+  --color-neutral: #2e2e2e;
+  --color-neutral-content: #e8e8e8;
+
+  --color-info: #3b82f6;
+  --color-info-content: #ffffff;
+
+  --color-success: #22c55e;
+  --color-success-content: #ffffff;
+
+  --color-warning: #f59e0b;
+  --color-warning-content: #1a1a1a;
+
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Variante : SIMI Violet */
+@plugin "daisyui/theme" {
+  name: "simi-violet";
+
+  --color-base-100: #0f0f1a;
+  --color-base-200: #16162a;
+  --color-base-300: #22224a;
+  --color-base-content: #e2e2ff;
+
+  --color-primary: #7c3aed;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #a855f7;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #c084fc;
+  --color-accent-content: #0f0f1a;
+
+  --color-neutral: #22224a;
+  --color-neutral-content: #e2e2ff;
+
+  --color-info: #6366f1;
+  --color-info-content: #ffffff;
+
+  --color-success: #22c55e;
+  --color-success-content: #ffffff;
+
+  --color-warning: #f59e0b;
+  --color-warning-content: #1a1a1a;
+
+  --color-error: #ef4444;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Variante : SIMI Bleu */
+@plugin "daisyui/theme" {
+  name: "simi-bleu";
+
+  --color-base-100: #0a1628;
+  --color-base-200: #0e1e38;
+  --color-base-300: #182d50;
+  --color-base-content: #cce4ff;
+
+  --color-primary: #0ea5e9;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #38bdf8;
+  --color-secondary-content: #0a1628;
+
+  --color-accent: #06b6d4;
+  --color-accent-content: #0a1628;
+
+  --color-neutral: #182d50;
+  --color-neutral-content: #cce4ff;
+
+  --color-info: #3b82f6;
+  --color-info-content: #ffffff;
+
+  --color-success: #22d3ee;
+  --color-success-content: #0a1628;
+
+  --color-warning: #fbbf24;
+  --color-warning-content: #0a1628;
+
+  --color-error: #f87171;
+  --color-error-content: #0a1628;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Variante : SIMI Vert */
+@plugin "daisyui/theme" {
+  name: "simi-vert";
+
+  --color-base-100: #0d1a12;
+  --color-base-200: #132019;
+  --color-base-300: #1f3328;
+  --color-base-content: #d4f5e0;
+
+  --color-primary: #22c55e;
+  --color-primary-content: #0d1a12;
+
+  --color-secondary: #4ade80;
+  --color-secondary-content: #0d1a12;
+
+  --color-accent: #34d399;
+  --color-accent-content: #0d1a12;
+
+  --color-neutral: #1f3328;
+  --color-neutral-content: #d4f5e0;
+
+  --color-info: #34d399;
+  --color-info-content: #0d1a12;
+
+  --color-success: #4ade80;
+  --color-success-content: #0d1a12;
+
+  --color-warning: #fbbf24;
+  --color-warning-content: #0d1a12;
+
+  --color-error: #f87171;
+  --color-error-content: #0d1a12;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Variante : Clair */
+@plugin "daisyui/theme" {
+  name: "simi-clair";
+
+  --color-base-100: #f5f5f5;
+  --color-base-200: #ffffff;
+  --color-base-300: #e5e5e5;
+  --color-base-content: #1a1a1a;
+
+  --color-primary: #e85d04;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #f48c06;
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #faa307;
+  --color-accent-content: #1a1a1a;
+
+  --color-neutral: #e5e5e5;
+  --color-neutral-content: #1a1a1a;
+
+  --color-info: #3b82f6;
+  --color-info-content: #ffffff;
+
+  --color-success: #16a34a;
+  --color-success-content: #ffffff;
+
+  --color-warning: #d97706;
+  --color-warning-content: #ffffff;
+
+  --color-error: #dc2626;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  *, *::before, *::after {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  button, a, [role="button"] {
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+                color 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--color-base-200); }
+  ::-webkit-scrollbar-thumb { background: var(--color-base-300); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+}

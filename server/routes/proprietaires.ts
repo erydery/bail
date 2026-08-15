@@ -1,0 +1,72 @@
+import { Router } from 'express';
+import { eq } from 'drizzle-orm';
+import { z } from 'zod';
+import { db } from '../db/client';
+import { proprietaires } from '../db/schema';
+import { requireAuth } from '../middleware/auth';
+import { nanoid } from '../utils/id';
+
+const router = Router();
+router.use(requireAuth);
+
+const schema = z.object({
+  nom:            z.string().min(1),
+  prenom:         z.string().min(1),
+  email:          z.string().email(),
+  telephone:      z.string().min(1),
+  adresse:        z.string().min(1),
+  iban:           z.string().optional(),
+  commissionTaux: z.number().min(0).max(100).default(8),
+});
+
+router.get('/', async (_req, res) => {
+  try {
+    const rows = await db.select().from(proprietaires).orderBy(proprietaires.createdAt);
+    res.json(rows);
+  } catch (e) { console.error(e); res.status(500).json({ error: 'Erreur serveur' }); }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const [row] = await db.select().from(proprietaires).where(eq(proprietaires.id, req.params.id));
+    if (!row) { res.status(404).json({ error: 'Introuvable' }); return; }
+    res.json(row);
+  } catch (e) { console.error(e); res.status(500).json({ error: 'Erreur serveur' }); }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const data = schema.parse(req.body);
+    const [row] = await db.insert(proprietaires).values({
+      id: nanoid(), ...data,
+      commissionTaux: String(data.commissionTaux),
+    }).returning();
+    res.status(201).json(row);
+  } catch (e) {
+    if (e instanceof z.ZodError) { res.status(400).json({ error: e.errors }); return; }
+    console.error(e); res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  try {
+    const data = schema.partial().parse(req.body);
+    const update: Record<string, unknown> = { ...data };
+    if (data.commissionTaux !== undefined) update.commissionTaux = String(data.commissionTaux);
+    const [row] = await db.update(proprietaires).set(update).where(eq(proprietaires.id, req.params.id)).returning();
+    if (!row) { res.status(404).json({ error: 'Introuvable' }); return; }
+    res.json(row);
+  } catch (e) {
+    if (e instanceof z.ZodError) { res.status(400).json({ error: e.errors }); return; }
+    console.error(e); res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await db.delete(proprietaires).where(eq(proprietaires.id, req.params.id));
+    res.status(204).end();
+  } catch (e) { console.error(e); res.status(500).json({ error: 'Erreur serveur' }); }
+});
+
+export default router;
