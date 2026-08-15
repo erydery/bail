@@ -295,7 +295,7 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: 0, transform: 'scale(0.92)', transformOrigin: 'center' }}
       >
-        <source src="/bacground4.mp4" type="video/mp4" />
+        <source src="/bacground2.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay sombre pour la lisibilité */}
