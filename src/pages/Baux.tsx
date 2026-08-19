@@ -233,7 +233,7 @@ export default function Baux() {
 
         <Modal open={!!editing} onClose={() => setEditing(null)} title="Modifier le bail">
           <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Select label="Type de bail" value={editForm.type} onChange={e => setEditForm(f => ({ ...f, type: e.target.value }))}
                 options={[
                   { value: 'nu', label: 'Bail nu' },
@@ -247,13 +247,13 @@ export default function Baux() {
                   { value: 'resilie', label: 'Résilié' },
                 ]} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Loyer HC (XAF)" type="number" value={editForm.loyer} onChange={e => setEditForm(f => ({ ...f, loyer: e.target.value }))} />
               <Input label="Charges (XAF)" type="number" value={editForm.charges} onChange={e => setEditForm(f => ({ ...f, charges: e.target.value }))} />
             </div>
             <Input label="Dépôt de garantie (XAF)" type="number" value={editForm.depotGarantie} onChange={e => setEditForm(f => ({ ...f, depotGarantie: e.target.value }))} />
             <Input label="Jour d'échéance" type="number" value={editForm.jourEcheance} onChange={e => setEditForm(f => ({ ...f, jourEcheance: e.target.value }))} />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Date de début" type="date" value={editForm.dateDebut} onChange={e => setEditForm(f => ({ ...f, dateDebut: e.target.value }))} />
               <Input label="Date de fin (optionnel)" type="date" value={editForm.dateFin} onChange={e => setEditForm(f => ({ ...f, dateFin: e.target.value }))} />
             </div>
@@ -345,7 +345,7 @@ export default function Baux() {
       />
 
       <Modal open={showModal} onClose={() => setShowModal(false)} title={`Nouveau bail — Étape ${step}/3`} width="600px">
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6">
           {[1, 2, 3].map(s => (
             <div
               key={s}
@@ -379,7 +379,7 @@ export default function Baux() {
         {step === 2 && (
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-bold text-base-content">Conditions financières</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Select label="Type de bail" value={form.type}
                 onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
                 options={[
@@ -389,7 +389,7 @@ export default function Baux() {
               <Input label="Jour d'échéance" type="number" placeholder="5"
                 value={form.jourEcheance} onChange={e => setForm(f => ({ ...f, jourEcheance: e.target.value }))} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Loyer HC (XAF)" type="number" placeholder="450000"
                 value={form.loyer} onChange={e => setForm(f => ({ ...f, loyer: e.target.value }))} />
               <Input label="Charges (XAF)" type="number" placeholder="50000"
@@ -397,7 +397,7 @@ export default function Baux() {
             </div>
             <Input label="Dépôt de garantie (XAF)" type="number" placeholder="900000"
               value={form.depotGarantie} onChange={e => setForm(f => ({ ...f, depotGarantie: e.target.value }))} />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Date de début" type="date"
                 value={form.dateDebut} onChange={e => setForm(f => ({ ...f, dateDebut: e.target.value }))} />
               <Input label="Date de fin (optionnel)" type="date"

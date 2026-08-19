@@ -1,13 +1,14 @@
-import {  Search, LogOut } from 'lucide-react';
+import { Search, LogOut, Menu } from 'lucide-react';
 import { useState } from 'react';
 import ThemePicker from '../ui/ThemePicker';
 import { useAuth } from '../../context/AuthContext';
 
 interface TopbarProps {
   title: string;
+  onMenuClick?: () => void;
 }
 
-export default function Topbar({ title }: TopbarProps) {
+export default function Topbar({ title, onMenuClick }: TopbarProps) {
   const [search, setSearch] = useState('');
   const { user, logout } = useAuth();
 
@@ -19,21 +20,24 @@ export default function Topbar({ title }: TopbarProps) {
 
   return (
     <header
-      className="flex items-center gap-4 px-6 sticky top-0 z-30 shrink-0"
-      style={{
-        height: '64px',
-        background: 'var(--color-base-100)',
-        borderBottom: '1px solid var(--color-base-300)',
-      }}
+      className="flex items-center gap-3 px-4 sm:px-6 sticky top-0 z-30 shrink-0"
+      style={{ height: '64px', background: 'var(--color-base-100)', borderBottom: '1px solid var(--color-base-300)' }}
     >
+      {/* Hamburger mobile */}
+      <button
+        onClick={onMenuClick}
+        className="lg:hidden p-2 rounded-lg transition-colors"
+        style={{ color: 'var(--color-base-content)', opacity: 0.6 }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--color-base-300)'; (e.currentTarget as HTMLElement).style.opacity = '1'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.opacity = '0.6'; }}
+      >
+        <Menu size={20} />
+      </button>
+
       {/* ── Barre de recherche ───────────────────────────── */}
       <div
-        className="flex items-center gap-3 flex-1 max-w-md rounded-xl px-4"
-        style={{
-          height: '40px',
-          background: 'var(--color-base-200)',
-          border: '1px solid var(--color-base-300)',
-        }}
+        className="hidden sm:flex items-center gap-3 flex-1 max-w-md rounded-xl px-4"
+        style={{ height: '40px', background: 'var(--color-base-200)', border: '1px solid var(--color-base-300)' }}
       >
         <Search size={14} style={{ color: 'var(--color-base-content)', opacity: 0.4 }} />
         <input

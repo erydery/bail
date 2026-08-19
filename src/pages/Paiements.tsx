@@ -184,7 +184,7 @@ export default function Paiements() {
           return (
             <div
               key={p.id}
-              className="flex items-center gap-4 p-4 rounded-2xl bg-base-200 border border-base-300"
+              className="flex flex-wrap items-center gap-3 p-4 rounded-2xl bg-base-200 border border-base-300"
             >
               <div
                 className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold shrink-0
@@ -196,47 +196,49 @@ export default function Paiements() {
 
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-base-content">{loc?.prenom} {loc?.nom}</div>
-                <div className="text-xs text-base-content/40">{log?.adresse}</div>
+                <div className="text-xs text-base-content/40 truncate">{log?.adresse}</div>
               </div>
 
-              <div className="text-right">
-                <div className="text-xs text-base-content/40">Dû</div>
-                <div className="font-semibold text-base-content">{formatMontant(p.montantDu)}</div>
-              </div>
-
-              <div className="text-right">
-                <div className="text-xs text-base-content/40">Payé</div>
-                <div className="font-semibold text-success">{formatMontant(p.montantPaye)}</div>
-              </div>
-
-              {restant > 0 && (
+              <div className="flex flex-wrap items-center gap-3 ml-auto">
                 <div className="text-right">
-                  <div className="text-xs text-base-content/40">Restant</div>
-                  <div className="font-semibold text-error">{formatMontant(restant)}</div>
+                  <div className="text-xs text-base-content/40">Dû</div>
+                  <div className="font-semibold text-base-content">{formatMontant(p.montantDu)}</div>
                 </div>
-              )}
 
-              <div className="flex items-center gap-2">
-                <Badge
-                  label={
-                    p.statut === 'paye' ? 'Payé' :
-                    p.statut === 'en_retard' ? 'En retard' :
-                    p.statut === 'partiel' ? 'Partiel' : 'En attente'
-                  }
-                  variant={
-                    p.statut === 'paye' ? 'success' :
-                    p.statut === 'en_retard' ? 'danger' : 'warning'
-                  }
-                />
-                <Button variant="ghost" size="sm" icon={<Pencil size={12} />}
-                  onClick={() => startEditPaiement(p)}>
-                  Modifier
-                </Button>
-                {p.statut !== 'paye' && (
-                  <Button variant="ghost" size="sm" icon={<Send size={12} />}>
-                    Relance
-                  </Button>
+                <div className="text-right">
+                  <div className="text-xs text-base-content/40">Payé</div>
+                  <div className="font-semibold text-success">{formatMontant(p.montantPaye)}</div>
+                </div>
+
+                {restant > 0 && (
+                  <div className="text-right">
+                    <div className="text-xs text-base-content/40">Restant</div>
+                    <div className="font-semibold text-error">{formatMontant(restant)}</div>
+                  </div>
                 )}
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge
+                    label={
+                      p.statut === 'paye' ? 'Payé' :
+                      p.statut === 'en_retard' ? 'En retard' :
+                      p.statut === 'partiel' ? 'Partiel' : 'En attente'
+                    }
+                    variant={
+                      p.statut === 'paye' ? 'success' :
+                      p.statut === 'en_retard' ? 'danger' : 'warning'
+                    }
+                  />
+                  <Button variant="ghost" size="sm" icon={<Pencil size={12} />}
+                    onClick={() => startEditPaiement(p)}>
+                    Modifier
+                  </Button>
+                  {p.statut !== 'paye' && (
+                    <Button variant="ghost" size="sm" icon={<Send size={12} />}>
+                      Relance
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           );

@@ -88,7 +88,7 @@ export default function Revisions() {
         <StatCard label="Solde restitué" value={formatMontant(totalSoldeRestitue)} icon={<Calculator size={20} />} accentColor="#22c55e" />
       </div>
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         {[{ value: 'revisions', label: 'Révisions de loyer' }, { value: 'charges', label: 'Régularisations charges' }].map(t => (
           <button key={t.value} onClick={() => setActiveTab(t.value as typeof activeTab)}
             className={activeTab === t.value ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-ghost'}>
@@ -191,7 +191,7 @@ export default function Revisions() {
                 return { value: b.id, label: loc && log ? `${loc.prenom} ${loc.nom} — ${log.adresse}` : b.id };
               }),
             ]} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Ancien loyer (XAF)" type="number" placeholder="430000"
               value={revForm.ancienLoyer} onChange={e => setRevForm(f => ({ ...f, ancienLoyer: e.target.value }))} />
             <Input label="Indice IRL actuel" type="number" placeholder="136.82"

@@ -193,7 +193,7 @@ export default function Proprietaires() {
 
         <Modal open={!!editing} onClose={() => setEditing(null)} title="Modifier le propriétaire">
           <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Prénom" value={editForm.prenom} onChange={e => setEditForm(f => ({ ...f, prenom: e.target.value }))} />
               <Input label="Nom" value={editForm.nom} onChange={e => setEditForm(f => ({ ...f, nom: e.target.value }))} />
             </div>
@@ -282,7 +282,7 @@ export default function Proprietaires() {
 
       <Modal open={showModal} onClose={() => setShowModal(false)} title="Nouveau propriétaire">
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Prénom" placeholder="Ibrahim"
               value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
             <Input label="Nom" placeholder="Camara"

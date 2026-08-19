@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import GalaxyBackground from '../components/GalaxyBackground';
+import EarthBackground from '../components/EarthBackground';
 import { Link } from 'react-router-dom';
 import {
   Building2, Users, FileText, CreditCard, Wrench, TrendingUp,
@@ -32,60 +34,53 @@ function useScrollY() {
 
 /** Liens principaux de la navigation */
 const NAV_LINKS = [
+  { label: 'Logements disponibles', href: '/logements' },
   { label: 'Fonctionnalités', href: '#features' },
   { label: 'Aperçu', href: '#screenshots' },
   { label: 'Tarifs', href: '#pricing' },
 ];
 
-/** Liste des fonctionnalités avec icônes et couleurs */
+/** Liste des fonctionnalités avec icônes (accent unique, cohérent avec l'identité du site) */
 const FEATURES = [
   {
-    icon: <Building2 size={22} />,
+    icon: <Building2 size={20} />,
     title: 'Parc locatif',
     desc: 'Gérez l\'ensemble de vos logements, propriétaires et locataires depuis un tableau de bord centralisé.',
-    color: '#22c55e',
   },
   {
-    icon: <FileText size={22} />,
+    icon: <FileText size={20} />,
     title: 'Baux numériques',
     desc: 'Créez, éditez et téléchargez vos contrats de bail au format PDF en quelques clics.',
-    color: '#e85d04',
   },
   {
-    icon: <CreditCard size={22} />,
+    icon: <CreditCard size={20} />,
     title: 'Suivi des paiements',
     desc: 'Historique complet des loyers, alertes de retard et rapprochement bancaire automatique.',
-    color: '#3b82f6',
   },
   {
-    icon: <Users size={22} />,
+    icon: <Users size={20} />,
     title: 'Candidatures',
     desc: 'Recevez les dossiers candidats, analysez le taux d\'effort et prenez vos décisions en un clic.',
-    color: '#a855f7',
   },
   {
-    icon: <Wrench size={22} />,
+    icon: <Wrench size={20} />,
     title: 'Maintenance',
     desc: 'Ouvrez des tickets de travaux, suivez les prestataires et la résolution des incidents.',
-    color: '#f59e0b',
   },
   {
-    icon: <TrendingUp size={22} />,
+    icon: <TrendingUp size={20} />,
     title: 'Révisions & Charges',
     desc: 'Révisions IRL automatiques et régularisation annuelle des charges locatives.',
-    color: '#06b6d4',
   },
   {
-    icon: <BarChart3 size={22} />,
+    icon: <BarChart3 size={20} />,
     title: 'Comptabilité',
     desc: 'Vue consolidée de vos revenus, dépenses et rentabilité par logement.',
-    color: '#ec4899',
   },
   {
-    icon: <Bell size={22} />,
+    icon: <Bell size={20} />,
     title: 'Communications',
     desc: 'Envoyez des quittances, relances et courriers directement depuis l\'application.',
-    color: '#84cc16',
   },
 ];
 
@@ -200,10 +195,10 @@ function Navbar() {
             className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm"
             style={{ background: 'linear-gradient(135deg,#22c55e,#16a34a)', color: '#fff' }}
           >
-            GL
+            SB
           </div>
           <span className="font-bold text-white tracking-tight">
-            Gestion<span style={{ color: '#22c55e' }}>Locative</span>
+            Simi<span style={{ color: '#22c55e' }}> Bail</span>
           </span>
         </Link>
 
@@ -286,25 +281,16 @@ function Navbar() {
 function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 overflow-hidden">
-      {/* Vidéo de fond */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0, transform: 'scale(0.92)', transformOrigin: 'center' }}
-      >
-        <source src="/bacground2.mp4" type="video/mp4" />
-      </video>
+      {/* Background 3D galaxie */}
+      <GalaxyBackground insideColor="#22c55e" outsideColor="#3b82f6" />
 
-      {/* Overlay sombre pour la lisibilité */}
+      {/* Overlay sombre léger — laisse passer la galaxie */}
       <div
         className="absolute inset-0"
         style={{
           zIndex: 1,
           background:
-            'linear-gradient(160deg, rgba(13,26,18,0.82) 0%, rgba(10,10,10,0.75) 50%, rgba(10,22,40,0.82) 100%)',
+            'linear-gradient(160deg, rgba(5,15,8,0.55) 0%, rgba(5,5,5,0.45) 50%, rgba(5,10,20,0.55) 100%)',
         }}
       />
 
@@ -334,7 +320,7 @@ function Hero() {
           style={{ background: 'rgba(34,197,94,0.08)', borderColor: 'rgba(34,197,94,0.25)', color: '#22c55e' }}
         >
           <Zap size={13} fill="#22c55e" />
-          <span className="text-xs font-semibold tracking-widest uppercase">Logiciel de gestion locative</span>
+          <span className="text-xs font-semibold tracking-widest uppercase">Logiciel de gestion immobilière</span>
         </div>
 
         {/* Titre principal */}
@@ -463,63 +449,37 @@ function Features() {
           </div>
         </div>
 
-        {/* Grille des fonctionnalités — disposition bento : deux tuiles larges (Parc locatif,
-            Révisions & Charges) servent de points d'ancrage visuels, la dernière tuile
-            (Communications) referme la grille en pleine largeur */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {FEATURES.map((feature, index) => {
-            const isWide = index === 0 || index === 5;
-            const isFull = index === 7;
-            const spanClass = isFull ? 'sm:col-span-2 lg:col-span-3' : isWide ? 'lg:col-span-2' : '';
-
-            return (
+        {/* Grille uniforme — même carte, même traitement pour les 8 fonctionnalités.
+            Le seul accent est le vert de marque, cohérent avec le reste du site. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {FEATURES.map((feature) => (
+            <div
+              key={feature.title}
+              className="relative rounded-2xl p-5 transition-all duration-200 cursor-default"
+              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.borderColor = 'rgba(34,197,94,0.35)';
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
               <div
-                key={feature.title}
-                className={`group rounded-2xl p-5 transition-all duration-200 cursor-default ${spanClass}`}
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                  e.currentTarget.style.transform = 'none';
-                }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e' }}
               >
-                {isWide || isFull ? (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: `${feature.color}18`, color: feature.color }}
-                    >
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white mb-1 text-sm">{feature.title}</h3>
-                      <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                        {feature.desc}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                      style={{ background: `${feature.color}18`, color: feature.color }}
-                    >
-                      {feature.icon}
-                    </div>
-                    <h3 className="font-bold text-white mb-2 text-sm">{feature.title}</h3>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                      {feature.desc}
-                    </p>
-                  </>
-                )}
+                {feature.icon}
               </div>
-            );
-          })}
+              <h3 className="font-bold text-white mb-2 text-sm">{feature.title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                {feature.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -736,19 +696,28 @@ function FinalCta() {
   return (
     <section
       className="py-28 px-6 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #0d1a12 0%, #0a1628 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #020d05 0%, #020810 100%)', minHeight: '520px' }}
     >
+      {/* Globe terrestre 3D en arrière-plan */}
+      <EarthBackground />
+
+      {/* Overlay pour lisibilité */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, rgba(34,197,94,0.08) 0%, transparent 65%)' }}
+        style={{
+          zIndex: 1,
+          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(2,8,16,0.85) 100%)',
+        }}
       />
-      <div className="max-w-2xl mx-auto text-center relative">
+
+      {/* Contenu */}
+      <div className="max-w-2xl mx-auto text-center relative" style={{ zIndex: 2 }}>
         <h2 className="font-black text-white mb-6 leading-tight" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
-          Prêt à simplifier votre gestion locative ?
+          Prêt à simplifier votre gestion avec Simi Bail ?
         </h2>
         <p className="mb-10 text-sm" style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
           Rejoignez les bailleurs camerounais qui ont déjà gagné des heures chaque semaine
-          grâce à Simi Bail.
+          grâce à <strong style={{ color: '#22c55e' }}>Simi Bail</strong>.
         </p>
         <Link
           to="/login"

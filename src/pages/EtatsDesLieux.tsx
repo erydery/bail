@@ -236,7 +236,7 @@ export default function EtatsDesLieux() {
 
       <Modal open={showModal} onClose={() => setShowModal(false)} title="Nouvel état des lieux" width="680px">
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select label="Bail concerné" value={edlForm.bailId}
               onChange={e => setEdlForm(f => ({ ...f, bailId: e.target.value }))}
               options={[

@@ -52,7 +52,7 @@ export default function Comptabilite() {
         <>
           <SkeletonPageHeader />
           <SkeletonStatCards count={4} />
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[1,2,3].map(i => <div key={i} className="h-8 w-28 rounded-xl animate-pulse" style={{ background: 'var(--color-base-300)' }} />)}
           </div>
           <SkeletonTable rows={6} cols={7} />
@@ -76,7 +76,7 @@ export default function Comptabilite() {
         <StatCard label="Résultat net agence" value={formatMontant(totalCommissions - totalDepenses)} icon={<DollarSign size={20} />} accentColor="#3b82f6" />
       </div>
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         {(['reversements', 'depenses', 'commissions'] as const).map(t => (
           <button key={t} onClick={() => setActiveTab(t)}
             className={activeTab === t ? 'btn btn-sm btn-primary' : 'btn btn-sm btn-ghost'}>
@@ -205,7 +205,7 @@ export default function Comptabilite() {
             ]} />
           <Input label="Description" placeholder="Réfection salle de bain..."
             value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Montant (XAF)" type="number" placeholder="250000"
               value={form.montant} onChange={e => setForm(f => ({ ...f, montant: e.target.value }))} />
             <Input label="Date" type="date"

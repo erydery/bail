@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 
 import authRoutes          from './routes/auth';
+import publicRoutes        from './routes/public';
 import proprietairesRoutes from './routes/proprietaires';
 import logementsRoutes     from './routes/logements';
 import locatairesRoutes    from './routes/locataires';
@@ -15,6 +16,7 @@ import comptabiliteRoutes  from './routes/comptabilite';
 import etatsDesLieuxRoutes from './routes/etatsDesLieux';
 import maintenanceRoutes   from './routes/maintenance';
 import dashboardRoutes     from './routes/dashboard';
+import chatRoutes          from './routes/chat';
 
 const app  = express();
 const PORT = Number(process.env.PORT ?? 3001);
@@ -40,6 +42,7 @@ app.get('/api/health', (_req, res) => res.json({ ok: true, ts: new Date().toISOS
 
 // ── Routes ─────────────────────────────────────────────────────────────────
 app.use('/api/auth',           authRoutes);
+app.use('/api/public',         publicRoutes);
 app.use('/api/dashboard',      dashboardRoutes);
 app.use('/api/proprietaires',  proprietairesRoutes);
 app.use('/api/logements',      logementsRoutes);
@@ -52,6 +55,7 @@ app.use('/api/revisions',      revisionsRoutes);
 app.use('/api/comptabilite',   comptabiliteRoutes);
 app.use('/api/etats-des-lieux', etatsDesLieuxRoutes);
 app.use('/api/maintenance',    maintenanceRoutes);
+app.use('/api/chat',           chatRoutes);
 
 // ── 404 ────────────────────────────────────────────────────────────────────
 app.use((_req, res) => res.status(404).json({ error: 'Route introuvable' }));

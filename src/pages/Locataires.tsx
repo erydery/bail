@@ -197,14 +197,14 @@ export default function Locataires() {
 
         <Modal open={!!editing} onClose={() => setEditing(null)} title="Modifier le locataire">
           <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Prénom" value={editForm.prenom} onChange={e => setEditForm(f => ({ ...f, prenom: e.target.value }))} />
               <Input label="Nom" value={editForm.nom} onChange={e => setEditForm(f => ({ ...f, nom: e.target.value }))} />
             </div>
             <Input label="Email" type="email" value={editForm.email} onChange={e => setEditForm(f => ({ ...f, email: e.target.value }))} />
             <Input label="Téléphone" value={editForm.telephone} onChange={e => setEditForm(f => ({ ...f, telephone: e.target.value }))} />
             <Input label="Adresse" value={editForm.adresse} onChange={e => setEditForm(f => ({ ...f, adresse: e.target.value }))} />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Date de naissance" type="date" value={editForm.dateNaissance} onChange={e => setEditForm(f => ({ ...f, dateNaissance: e.target.value }))} />
               <Input label="N° pièce d'identité" value={editForm.numeroPiece} onChange={e => setEditForm(f => ({ ...f, numeroPiece: e.target.value }))} />
             </div>
@@ -280,7 +280,7 @@ export default function Locataires() {
 
       <Modal open={showModal} onClose={() => setShowModal(false)} title="Nouveau locataire">
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Prénom" placeholder="Mariama"
               value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
             <Input label="Nom" placeholder="Sylla"
@@ -292,7 +292,7 @@ export default function Locataires() {
             value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
           <Input label="Adresse actuelle" placeholder="45 Rue..."
             value={form.adresse} onChange={e => setForm(f => ({ ...f, adresse: e.target.value }))} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Date de naissance" type="date"
               value={form.dateNaissance} onChange={e => setForm(f => ({ ...f, dateNaissance: e.target.value }))} />
             <Input label="N° pièce d'identité" placeholder="CNI-XXXXXX"

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Plus, Maximize2, DoorOpen, ArrowLeft, Building2, Pencil, Upload, X, ChevronLeft, ChevronRight, ImagePlus } from 'lucide-react';
+import { Plus, Maximize2, DoorOpen, ArrowLeft, Building2, Pencil, Upload, X, ChevronLeft, ChevronRight, ImagePlus, ExternalLink, Copy, Check } from 'lucide-react';
 import PageHeader from '../components/ui/PageHeader';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
@@ -221,6 +221,28 @@ const typeLabels: Record<string, string> = {
   local_commercial: 'Local commercial',
 };
 
+// ── Bouton copier lien (admin) ────────────────────────────────────────────
+function CopyLinkAdminButton({ logementId }: { logementId: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    const url = `${window.location.origin}/logements/${logementId}`;
+    try { await navigator.clipboard.writeText(url); }
+    catch { const el = document.createElement('textarea'); el.value = url; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="btn btn-sm btn-ghost border border-base-300 flex items-center gap-2"
+      style={{ color: copied ? 'var(--color-success)' : undefined }}
+    >
+      {copied ? <Check size={14} /> : <Copy size={14} />}
+      {copied ? 'Copié !' : 'Copier le lien'}
+    </button>
+  );
+}
+
 // ── Page principale ───────────────────────────────────────────────────────
 export default function Logements() {
   const [selected, setSelected] = useState<Logement | null>(null);
@@ -315,6 +337,19 @@ export default function Logements() {
           <Button variant="secondary" size="sm" icon={<Pencil size={14} />} onClick={() => startEdit(selected)}>
             Modifier
           </Button>
+          {selected.statut === 'libre' && (
+            <>
+              <a
+                href={`/logements/${selected.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-sm btn-ghost border border-base-300 flex items-center gap-2 text-primary"
+              >
+                <ExternalLink size={14} /> Voir page publique
+              </a>
+              <CopyLinkAdminButton logementId={selected.id} />
+            </>
+          )}
         </div>
 
         <PageHeader
@@ -328,7 +363,7 @@ export default function Logements() {
           {/* Caractéristiques */}
           <Card>
             <h3 className="text-xs font-bold uppercase tracking-wider mb-4 text-base-content/40">Caractéristiques</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { label: 'Type', value: typeLabels[selected.type] },
                 { label: 'Surface', value: `${selected.surface} m²` },
@@ -425,21 +460,21 @@ export default function Logements() {
         <Modal open={!!editing} onClose={() => setEditing(null)} title="Modifier le logement">
           <div className="flex flex-col gap-4">
             <Input label="Adresse" value={editForm.adresse} onChange={e => setEditForm(f => ({ ...f, adresse: e.target.value }))} />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Ville" value={editForm.ville} onChange={e => setEditForm(f => ({ ...f, ville: e.target.value }))} />
               <Input label="Code postal" value={editForm.codePostal} onChange={e => setEditForm(f => ({ ...f, codePostal: e.target.value }))} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Select label="Type" value={editForm.type} onChange={e => setEditForm(f => ({ ...f, type: e.target.value }))}
                 options={[{ value: 'appartement', label: 'Appartement' }, { value: 'maison', label: 'Maison' }, { value: 'studio', label: 'Studio' }, { value: 'local_commercial', label: 'Local commercial' }]} />
               <Select label="Statut" value={editForm.statut} onChange={e => setEditForm(f => ({ ...f, statut: e.target.value }))}
                 options={[{ value: 'libre', label: 'Libre' }, { value: 'occupe', label: 'Occupé' }, { value: 'en_travaux', label: 'En travaux' }]} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Surface (m²)" type="number" value={editForm.surface} onChange={e => setEditForm(f => ({ ...f, surface: e.target.value }))} />
               <Input label="Nb pièces" type="number" value={editForm.nbPieces} onChange={e => setEditForm(f => ({ ...f, nbPieces: e.target.value }))} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Loyer (XAF)" type="number" value={editForm.loyer} onChange={e => setEditForm(f => ({ ...f, loyer: e.target.value }))} />
               <Input label="Charges (XAF)" type="number" value={editForm.charges} onChange={e => setEditForm(f => ({ ...f, charges: e.target.value }))} />
             </div>
@@ -463,7 +498,7 @@ export default function Logements() {
       {loading ? (
         <>
           <SkeletonPageHeader />
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[1,2,3,4].map(i => <div key={i} className="h-8 w-20 rounded-xl animate-pulse" style={{ background: 'var(--color-base-300)' }} />)}
           </div>
           <SkeletonCardGrid count={6} cols={3} cardHeight="260px" />
@@ -476,7 +511,7 @@ export default function Logements() {
             action={<Button icon={<Plus size={16} />} onClick={() => setShowModal(true)}>Ajouter</Button>}
           />
 
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[
               { value: 'tous', label: 'Tous' },
               { value: 'libre', label: 'Libres' },
@@ -557,25 +592,25 @@ export default function Logements() {
             <div className="flex flex-col gap-4">
               <Input label="Adresse" placeholder="45 Rue Kakimbo"
                 value={form.adresse} onChange={e => setForm(f => ({ ...f, adresse: e.target.value }))} />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Ville" placeholder="Conakry"
                   value={form.ville} onChange={e => setForm(f => ({ ...f, ville: e.target.value }))} />
                 <Input label="Code postal" placeholder="001"
                   value={form.codePostal} onChange={e => setForm(f => ({ ...f, codePostal: e.target.value }))} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Select label="Type" value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
                   options={[{ value: 'appartement', label: 'Appartement' }, { value: 'maison', label: 'Maison' }, { value: 'studio', label: 'Studio' }, { value: 'local_commercial', label: 'Local commercial' }]} />
                 <Select label="Statut" value={form.statut} onChange={e => setForm(f => ({ ...f, statut: e.target.value }))}
                   options={[{ value: 'libre', label: 'Libre' }, { value: 'occupe', label: 'Occupé' }, { value: 'en_travaux', label: 'En travaux' }]} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Surface (m²)" type="number" placeholder="85"
                   value={form.surface} onChange={e => setForm(f => ({ ...f, surface: e.target.value }))} />
                 <Input label="Nb pièces" type="number" placeholder="3"
                   value={form.nbPieces} onChange={e => setForm(f => ({ ...f, nbPieces: e.target.value }))} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Loyer (XAF)" type="number" placeholder="450000"
                   value={form.loyer} onChange={e => setForm(f => ({ ...f, loyer: e.target.value }))} />
                 <Input label="Charges (XAF)" type="number" placeholder="50000"

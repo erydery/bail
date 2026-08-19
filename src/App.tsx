@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/layout/Layout';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import LogementsPublic from './pages/LogementsPublic';
 import Dashboard from './pages/Dashboard';
 import Proprietaires from './pages/Proprietaires';
 import Logements from './pages/Logements';
@@ -42,6 +43,10 @@ export default function App() {
           <Routes>
             {/* Landing page publique */}
             <Route path="/" element={<Landing />} />
+
+            {/* Logements publics */}
+            <Route path="/logements" element={<LogementsPublic />} />
+            <Route path="/logements/:id" element={<LogementsPublic />} />
 
             {/* Authentification */}
             <Route path="/login" element={<Login />} />

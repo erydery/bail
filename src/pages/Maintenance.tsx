@@ -116,7 +116,7 @@ export default function Maintenance() {
         <>
           <SkeletonPageHeader />
           <SkeletonStatCards count={4} />
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[1,2,3,4,5,6,7,8,9].map(i => <div key={i} className="h-8 w-20 rounded-xl animate-pulse" style={{ background: 'var(--color-base-300)' }} />)}
           </div>
           <SkeletonCardGrid count={6} cols={3} cardHeight="220px" />
@@ -271,7 +271,7 @@ export default function Maintenance() {
               className="w-full rounded-xl px-4 py-2.5 text-sm outline-none resize-none bg-base-100 border border-base-300 text-base-content"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select label="Priorité" value={form.priorite}
               onChange={e => setForm(f => ({ ...f, priorite: e.target.value }))}
               options={[
@@ -308,7 +308,7 @@ export default function Maintenance() {
               className="w-full rounded-xl px-4 py-2.5 text-sm outline-none resize-none bg-base-100 border border-base-300 text-base-content"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select label="Priorité" value={editForm.priorite}
               onChange={e => setEditForm(f => ({ ...f, priorite: e.target.value }))}
               options={[
@@ -328,7 +328,7 @@ export default function Maintenance() {
           </div>
           <Input label="Prestataire (optionnel)" value={editForm.prestataire}
             onChange={e => setEditForm(f => ({ ...f, prestataire: e.target.value }))} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Coût (XAF)" type="number" value={editForm.cout}
               onChange={e => setEditForm(f => ({ ...f, cout: e.target.value }))} />
             <Input label="Date de résolution" type="date" value={editForm.dateResolution}

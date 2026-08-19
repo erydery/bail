@@ -57,7 +57,7 @@ export default function Dashboard() {
        
       />
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         {periods.map((p, i) => (
           <button key={p} onClick={() => setPeriod(i)}
             className="px-4 py-2 rounded-xl text-sm font-semibold transition-all"

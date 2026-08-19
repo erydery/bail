@@ -269,7 +269,7 @@ export default function Candidatures() {
       {loading ? (
         <>
           <SkeletonPageHeader />
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[1,2,3,4,5].map(i => <div key={i} className="h-8 w-24 rounded-xl animate-pulse" style={{ background: 'var(--color-base-300)' }} />)}
           </div>
           <SkeletonCardGrid count={6} cols={3} cardHeight="200px" />
@@ -286,7 +286,7 @@ export default function Candidatures() {
         }
       />
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         {[
           { value: 'tous', label: 'Toutes' },
           { value: 'en_attente', label: 'En attente' },
@@ -371,7 +371,7 @@ export default function Candidatures() {
                 label: `${l.adresse} (${l.type})`,
               })),
             ]} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Prénom" placeholder="Kadiatou"
               value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
             <Input label="Nom" placeholder="Diallo"
@@ -381,7 +381,7 @@ export default function Candidatures() {
             value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
           <Input label="Téléphone" placeholder="+224 6XX XX XX XX"
             value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Revenus mensuels (XAF)" type="number" placeholder="600000"
               value={form.revenus} onChange={e => setForm(f => ({ ...f, revenus: e.target.value }))} />
             <Input label="Employeur" placeholder="Ministère de..."
