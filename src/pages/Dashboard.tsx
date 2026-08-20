@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AlertTriangle, Building2, TrendingUp, Wrench, Clock, CreditCard, Home, Users, ArrowRight, CheckCircle, User } from 'lucide-react';
 import StatCard from '../components/ui/StatCard';
 import Card from '../components/ui/Card';
@@ -14,6 +15,7 @@ import type { Bail, Paiement, Logement, Candidature, Maintenance } from '../type
 const periods = ["Aujourd'hui", 'Cette semaine', 'Ce mois', 'Cette année'];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [period, setPeriod] = useState(1);
   const [perfTab, setPerfTab] = useState<'logements' | 'Travaux' | 'baux'>('logements');
 
@@ -105,7 +107,7 @@ export default function Dashboard() {
                       </div>
                       <div className="flex-1">
                         <div className="text-sm font-semibold" style={{ color: 'var(--color-base-content)' }}>Loyer en retard — bail {p.bailId}</div>
-                        <div className="text-xs" style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Voir le paiement →</div>
+                        <div className="text-xs" style={{ color: 'var(--color-primary)', cursor: 'pointer' }} onClick={() => navigate('/app/paiements')}>Voir le paiement →</div>
                       </div>
                       <div className="text-sm font-bold" style={{ color: 'var(--color-error)' }}>{formatMontant(p.montantDu - p.montantPaye)}</div>
                     </div>
@@ -117,7 +119,7 @@ export default function Dashboard() {
                       </div>
                       <div className="flex-1">
                         <div className="text-sm font-semibold" style={{ color: 'var(--color-base-content)' }}>Candidature : {c.prenom} {c.nom}</div>
-                        <div className="text-xs" style={{ color: 'var(--color-primary)', cursor: 'pointer' }}>Voir le dossier →</div>
+                        <div className="text-xs" style={{ color: 'var(--color-primary)', cursor: 'pointer' }} onClick={() => navigate('/app/candidatures')}>Voir le dossier →</div>
                       </div>
                       <Badge label={c.statut === 'en_etude' ? 'En étude' : 'En attente'} variant={c.statut === 'en_etude' ? 'info' : 'warning'} />
                     </div>

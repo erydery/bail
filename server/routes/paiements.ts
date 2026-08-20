@@ -58,11 +58,26 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const data = schema.partial().parse(req.body);
-    const [row] = await db.update(paiements).set(data).where(eq(paiements.id, req.params.id)).returning();
+
+    // Recalcul automatique du statut si montantPaye ou montantDu changent
+    let update: Record<string, unknown> = { ...data };
+    if (data.montantPaye !== undefined || data.montantDu !== undefined) {
+      // Récupère le paiement actuel pour avoir les valeurs manquantes
+      const [current] = await db.select().from(paiements).where(eq(paiements.id, req.params.id));
+      if (current) {
+        const montantPaye = data.montantPaye ?? current.montantPaye;
+        const montantDu   = data.montantDu   ?? current.montantDu;
+        if (montantPaye >= montantDu)  update.statut = 'paye';
+        else if (montantPaye > 0)      update.statut = 'partiel';
+        else                           update.statut = 'en_attente';
+      }
+    }
+
+    const [row] = await db.update(paiements).set(update).where(eq(paiements.id, req.params.id)).returning();
     if (!row) { res.status(404).json({ error: 'Introuvable' }); return; }
     res.json(row);
   } catch (e) {
-    if (e instanceof z.ZodError) { res.status(400).json({ error: e.errors }); return; }
+    if (e instanceof z.ZodError) { res.status(400).json({ error: e.issues }); return; }
     console.error(e); res.status(500).json({ error: 'Erreur serveur' });
   }
 });

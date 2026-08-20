@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Building2, UserCheck, FileText,
-  CreditCard, MessageSquare, TrendingUp, Calculator,
+  CreditCard, Sparkles, TrendingUp, Calculator,
   ClipboardList, Wrench, ChevronLeft, ChevronRight, Home,
   Settings, HelpCircle, LogOut
 } from 'lucide-react';
@@ -34,7 +34,7 @@ const navGroups = [
   {
     label: 'AUTOMATISATION',
     items: [
-      { path: '/app/communications', label: 'Communications',     icon: MessageSquare },
+      { path: '/app/communications', label: 'Assistant IA', icon: Sparkles },
       { path: '/app/revisions',      label: 'Révisions & Charges', icon: TrendingUp },
       { path: '/app/comptabilite',   label: 'Comptabilité',       icon: Calculator },
     ],

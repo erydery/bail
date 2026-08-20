@@ -290,6 +290,30 @@ export default function Paiements() {
           <Input label="Montant payé (XAF)" type="number"
             value={editPaiementForm.montantPaye}
             onChange={e => setEditPaiementForm(f => ({ ...f, montantPaye: e.target.value }))} />
+
+          {/* Aperçu du statut calculé automatiquement */}
+          {editingPaiement && editPaiementForm.montantPaye !== '' && (() => {
+            const paye = Number(editPaiementForm.montantPaye);
+            const du   = editingPaiement.montantDu;
+            const pct  = Math.min(100, Math.round(paye / du * 100));
+            const statut = paye >= du ? 'Payé intégralement' : paye > 0 ? `Partiel (${pct}%)` : 'En attente';
+            const color  = paye >= du ? 'var(--color-success)' : paye > 0 ? 'var(--color-warning)' : 'var(--color-error)';
+            return (
+              <div className="flex flex-col gap-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="text-base-content/50">Statut calculé</span>
+                  <span className="font-semibold" style={{ color }}>{statut}</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-base-300">
+                  <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, background: color }} />
+                </div>
+                <div className="flex justify-between text-xs text-base-content/40">
+                  <span>Payé : {formatMontant(paye)}</span>
+                  <span>Restant : {formatMontant(Math.max(0, du - paye))}</span>
+                </div>
+              </div>
+            );
+          })()}
           <Input label="Date de paiement" type="date"
             value={editPaiementForm.datePaiement}
             onChange={e => setEditPaiementForm(f => ({ ...f, datePaiement: e.target.value }))} />

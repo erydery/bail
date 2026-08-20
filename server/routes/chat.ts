@@ -104,7 +104,7 @@ const schema = z.object({
     role: z.enum(['user', 'assistant']),
     content: z.string(),
   })),
-  model: z.string().optional().default('google/gemini-2.0-flash-001'),
+  model: z.string().optional().default('google/gemini-2.5-flash'),
 });
 
 router.post('/', async (req, res) => {

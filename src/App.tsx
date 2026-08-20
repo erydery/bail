@@ -12,7 +12,7 @@ import Locataires from './pages/Locataires';
 import Candidatures from './pages/Candidatures';
 import Baux from './pages/Baux';
 import Paiements from './pages/Paiements';
-import Communications from './pages/Communications';
+import AssistantAI from './pages/AssistantAI';
 import Revisions from './pages/Revisions';
 import Comptabilite from './pages/Comptabilite';
 import EtatsDesLieux from './pages/EtatsDesLieux';
@@ -60,7 +60,7 @@ export default function App() {
               <Route path="candidatures"    element={<Candidatures />} />
               <Route path="baux"            element={<Baux />} />
               <Route path="paiements"       element={<Paiements />} />
-              <Route path="communications"  element={<Communications />} />
+              <Route path="communications"  element={<AssistantAI />} />
               <Route path="revisions"       element={<Revisions />} />
               <Route path="comptabilite"    element={<Comptabilite />} />
               <Route path="etats-des-lieux" element={<EtatsDesLieux />} />
